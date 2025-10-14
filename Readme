@@ -1,0 +1,62 @@
+📋 Sobre o Projeto
+Este projeto consiste em um painel administrativo onde funcionários de restaurantes podem habilitar ou desabilitar a exibição de itens específicos do cardápio. Ideal para 
+situações onde certos pratos estão temporariamente indisponíveis ou para destacar promoções especiais.
+
+✨ Funcionalidades
+✅ Controle de Visibilidade: Ative ou desative a exibição de cada item do cardápio
+
+🎨 Interface Intuitiva: Design limpo e fácil de usar
+
+📱 Responsivo: Funciona em diferentes tamanhos de tela
+
+🔄 Atualização em Tempo Real: Alterações refletidas instantaneamente
+
+🏷️ Categorização: Organização dos itens por categorias (Entradas, Pratos Principais, etc.)
+
+🛠️ Tecnologias Utilizadas
+HTML5: Estruturação do conteúdo
+
+CSS3: Estilização e design responsivo
+
+JavaScript: Interatividade e funcionalidades dinâmicas
+
+🚀 Como Usar
+Pré-requisitos
+Navegador web moderno (Chrome, Firefox, Safari, Edge)
+
+Servidor web local (opcional, para desenvolvimento)
+
+Uso Básico
+Ao abrir o painel, você verá a lista completa de itens do cardápio organizados por categorias
+
+Cada item possui um interruptor (toggle) para controlar sua visibilidade
+
+Clique no interruptor para alternar entre "Visível" e "Oculto"
+
+O status de cada item é atualizado instantaneamente
+
+🤝 Contribuição
+Contribuições são sempre bem-vindas! Siga estos passos:
+
+Faça um fork do projeto
+
+Crie uma branch para sua feature (git checkout -b feature/AmazingFeature)
+
+Commit suas mudanças (git commit -m 'Add some AmazingFeature')
+
+Push para a branch (git push origin feature/AmazingFeature)
+
+Abra um Pull Request
+
+📄 Licença
+Este projeto está sob a licença MIT. Veja o arquivo LICENSE para mais detalhes.
+
+👨‍💻 Autor
+Silvio Aquino
+
+GitHub: @silvioaquino
+
+Email: silvio.aquinodev@gmail.com
+
+🔄 Versões
+v4.0.0 - Versão inicial com funcionalidades básicas de controle de visibilidade
