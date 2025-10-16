@@ -1,15 +1,29 @@
-        * {
+  * {
             margin: 0;
             padding: 0;
             box-sizing: border-box;
         }
 
-        html, body {
+        :root {
+            --primary: #d32f2f;
+            --primary-dark: #b71c1c;
+            --primary-light: #ff6659;
+            --secondary: #f5f5f5;
+            --accent: #ffab40;
+            --text: #333;
+            --text-light: #777;
+            --white: #ffffff;
+            --shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+            --radius: 12px;
+        }
+
+        html,
+        body {
             width: 100%;
             height: 100%;
             overflow: hidden;
-            font-family: Arial, sans-serif;
-            background-color: #f5f5f5;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background-color: #f8f9fa;
         }
 
         body {
@@ -25,31 +39,31 @@
             display: flex;
             flex-direction: column;
             overflow: hidden;
+            box-shadow: var(--shadow);
         }
 
         .header {
-            background: #d32f2f;
-            color: white;
+            background: linear-gradient(135deg, var(--primary), var(--primary-dark));
+            color: var(--white);
             padding: 2vh 0;
             text-align: center;
             flex-shrink: 0;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+            position: relative;
+            overflow: hidden;
         }
 
-        .category-title {
-            background: #f8f8f8;
-            padding: 2vh 0;
-            text-align: center;
-            border-bottom: 2px solid #ddd;
-            flex-shrink: 0;
+        .header::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100" width="100" height="100" opacity="0.1"><path d="M30,30 Q50,10 70,30 T90,50 T70,70 T50,90 T30,70 T10,50 T30,30 Z" fill="white"/></svg>');
+            background-size: 80px;
         }
 
-        .category-title h2 {
-            font-size: 4vh;
-            color: #d32f2f;
-            margin: 0;
-            border: none;
-            padding: 0;
-        }
 
         .content {
             display: flex;
@@ -62,7 +76,7 @@
         .menu-section {
             flex: 1;
             padding: 2vh;
-            background: #fafafa;
+            background: var(--secondary);
             overflow-y: auto;
             display: flex;
             flex-direction: column;
@@ -73,9 +87,22 @@
             display: flex;
             align-items: center;
             justify-content: center;
-            background: white;
+            background: linear-gradient(to bottom right, var(--white), var(--secondary));
             padding: 2vh;
             height: 200px;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .image-section::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100" width="100" height="100" opacity="0.03"><path d="M30,30 Q50,10 70,30 T90,50 T70,70 T50,90 T30,70 T10,50 T30,30 Z" fill="%23d32f2f"/></svg>');
+            background-size: 60px;
         }
 
         .menu-list {
@@ -89,11 +116,29 @@
             display: flex;
             justify-content: space-between;
             align-items: center;
-            padding: 2vh 1.5vh;
-            border-bottom: 2px dashed #ccc;
+            padding: 2.5vh 2vh;
+            border-bottom: 1px solid rgba(0, 0, 0, 0.05);
             transition: all 0.3s ease;
             width: 100%;
             flex-shrink: 0;
+            cursor: pointer;
+            border-radius: var(--radius);
+            margin-bottom: 1vh;
+            background: var(--white);
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.03);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .menu-item::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.4), transparent);
+            transition: left 0.5s;
         }
 
         .menu-item:last-child {
@@ -102,24 +147,39 @@
 
         .menu-item.selected {
             background-color: #ffebee;
-            border-left: 6px solid #d32f2f;
-            padding-left: 1.5vh;
+            border-left: 6px solid var(--primary);
+            padding-left: 2vh;
             transform: scale(1.02);
-            box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+            box-shadow: 0 4px 12px rgba(211, 47, 47, 0.15);
         }
 
         .item-name {
             font-size: 2.5vh;
-            color: #333;
+            color: var(--text);
             font-weight: 500;
             flex: 1;
+        }
+
+        .item-description {
+            font-size: 1.8vh;
+            color: var(--text-light);
+            margin-top: 1.5vh;
+            display: block;
         }
 
         .item-price {
             font-size: 2.5vh;
             font-weight: bold;
-            color: #d32f2f;
+            color: var(--primary);
             margin-left: 1.5vh;
+            background: rgba(211, 47, 47, 0.1);
+            padding: 8px 16px;
+            border-radius: 30px;
+            transition: all 0.3s ease;
+        }
+
+        .menu-item>div {
+            flex: 1;
         }
 
         .food-image {
@@ -127,10 +187,10 @@
             height: 100%;
             max-width: 100%;
             max-height: 100%;
-            object-fit: contain;
-            border-radius: 10px;
-            box-shadow: 0 6px 12px rgba(0,0,0,0.15);
-            transition: opacity 0.5s ease;
+            object-fit: cover;
+            border-radius: var(--radius);
+            box-shadow: 0 8px 20px rgba(0, 0, 0, 0.15);
+            transition: opacity 0.5s ease, transform 0.5s ease;
         }
 
         .hidden {
@@ -140,6 +200,18 @@
         h1 {
             margin: 0;
             font-size: 5vh;
+            text-shadow: 1px 1px 3px rgba(0, 0, 0, 0.2);
+            position: relative;
+            z-index: 1;
+        }
+
+        h2 {
+            font-size: 3.5vh;
+            margin-top: 1vh;
+            font-weight: 400;
+            position: relative;
+            z-index: 1;
+            opacity: 0.9;
         }
 
         .page {
@@ -155,24 +227,94 @@
             display: flex;
         }
 
+        .badge {
+            position: absolute;
+            top: 10px;
+            right: 10px;
+            background: var(--accent);
+            color: var(--white);
+            padding: 5px 10px;
+            border-radius: 20px;
+            font-size: 1.5vh;
+            font-weight: bold;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
+        }
+
+        /* Forçar o layout pra caber na tela 1366x768 */
+        .container {
+            width: 100%;
+            height: 100vh;
+            display: flex;
+            flex-direction: column;
+        }
+
+        .header {
+            padding: 1.5vh 0;
+        }
+
+        .image-section {
+            flex: none;
+            height: 35vh;
+        }
+
+        .menu-section {
+            flex: none;
+            height: 45vh;
+            overflow: hidden;
+        }
+
+        .menu-item {
+            padding: 1vh 2vh;
+            margin-bottom: 0.8vh;
+        }
+
+        .item-name {
+            font-size: 2.2vh;
+        }
+
+        .item-description {
+            font-size: 1.5vh;
+        }
+
+        .item-price {
+            font-size: 2vh;
+            padding: 6px 12px;
+        }
+
+        html,
+        body {
+            overflow: hidden;
+        }
+
+
         /* Responsividade para telas muito pequenas */
         @media (max-width: 768px) {
             .content {
                 flex-direction: column;
             }
-            
+
             .menu-section {
                 flex: 1;
                 overflow-y: auto;
             }
-            
+
             .image-section {
                 flex: 1;
                 min-height: 40vh;
             }
-            
+
             .food-image {
                 max-height: 35vh;
+            }
+
+            .category-nav {
+                padding: 1vh;
+                justify-content: flex-start;
+            }
+
+            .category-btn {
+                padding: 1vh 2vh;
+                font-size: 1.8vh;
             }
         }
 
@@ -181,11 +323,11 @@
             .item-name {
                 font-size: 2.2vh;
             }
-            
+
             .item-price {
                 font-size: 2.2vh;
             }
-            
+
             .menu-item {
                 padding: 1.8vh 1.5vh;
             }
@@ -196,16 +338,53 @@
             .header {
                 padding: 1.5vh 0;
             }
-            
-            .category-title {
+
+            .category-nav {
                 padding: 1.5vh 0;
             }
-            
+
             h1 {
                 font-size: 4vh;
             }
-            
-            .category-title h2 {
-                font-size: 3vh;
+
+            h2 {
+                font-size: 2.5vh;
             }
+        }
+
+        /* Animações */
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+                transform: translateY(10px);
+            }
+
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .menu-item {
+            animation: fadeIn 0.5s ease forwards;
+        }
+
+        .menu-item:nth-child(1) {
+            animation-delay: 0.1s;
+        }
+
+        .menu-item:nth-child(2) {
+            animation-delay: 0.2s;
+        }
+
+        .menu-item:nth-child(3) {
+            animation-delay: 0.3s;
+        }
+
+        .menu-item:nth-child(4) {
+            animation-delay: 0.4s;
+        }
+
+        .menu-item:nth-child(5) {
+            animation-delay: 0.5s;
         }

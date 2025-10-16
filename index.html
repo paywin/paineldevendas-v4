@@ -1,188 +1,651 @@
 <!DOCTYPE html>
 <html lang="pt-br">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Cardápio Interativo</title>
-    <link rel="stylesheet" href="./css/style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        :root {
+            --primary: #d32f2f;
+            --primary-dark: #b71c1c;
+            --primary-light: #ff6659;
+            --secondary: #f5f5f5;
+            --accent: #ffab40;
+            --text: #333;
+            --text-light: #777;
+            --white: #ffffff;
+            --shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+            --radius: 12px;
+        }
+
+        html,
+        body {
+            width: 100%;
+            height: 100%;
+            overflow: hidden;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background-color: #f8f9fa;
+        }
+
+        body {
+            padding: 0;
+            display: flex;
+            flex-direction: column;
+        }
+
+        .container {
+            width: 100%;
+            height: 100vh;
+            background: white;
+            display: flex;
+            flex-direction: column;
+            overflow: hidden;
+            box-shadow: var(--shadow);
+        }
+
+        .header {
+            background: linear-gradient(135deg, var(--primary), var(--primary-dark));
+            color: var(--white);
+            padding: 2vh 0;
+            text-align: center;
+            flex-shrink: 0;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .header::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100" width="100" height="100" opacity="0.1"><path d="M30,30 Q50,10 70,30 T90,50 T70,70 T50,90 T30,70 T10,50 T30,30 Z" fill="white"/></svg>');
+            background-size: 80px;
+        }
+
+
+        .content {
+            display: flex;
+            flex: 1;
+            overflow: hidden;
+            min-height: 0;
+            flex-direction: column;
+        }
+
+        .menu-section {
+            flex: 1;
+            padding: 2vh;
+            background: var(--secondary);
+            overflow-y: auto;
+            display: flex;
+            flex-direction: column;
+        }
+
+        .image-section {
+            flex: 1;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background: linear-gradient(to bottom right, var(--white), var(--secondary));
+            padding: 2vh;
+            height: 200px;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .image-section::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100" width="100" height="100" opacity="0.03"><path d="M30,30 Q50,10 70,30 T90,50 T70,70 T50,90 T30,70 T10,50 T30,30 Z" fill="%23d32f2f"/></svg>');
+            background-size: 60px;
+        }
+
+        .menu-list {
+            width: 100%;
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+        }
+
+        .menu-item {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 2.5vh 2vh;
+            border-bottom: 1px solid rgba(0, 0, 0, 0.05);
+            transition: all 0.3s ease;
+            width: 100%;
+            flex-shrink: 0;
+            cursor: pointer;
+            border-radius: var(--radius);
+            margin-bottom: 1vh;
+            background: var(--white);
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.03);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .menu-item::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.4), transparent);
+            transition: left 0.5s;
+        }
+
+        .menu-item:last-child {
+            border-bottom: none;
+        }
+
+        .menu-item.selected {
+            background-color: #ffebee;
+            border-left: 6px solid var(--primary);
+            padding-left: 2vh;
+            transform: scale(1.02);
+            box-shadow: 0 4px 12px rgba(211, 47, 47, 0.15);
+        }
+
+        .item-name {
+            font-size: 2.5vh;
+            color: var(--text);
+            font-weight: 500;
+            flex: 1;
+        }
+
+        .item-description {
+            font-size: 1.8vh;
+            color: var(--text-light);
+            margin-top: 1.5vh;
+            display: block;
+        }
+
+        .item-price {
+            font-size: 2.5vh;
+            font-weight: bold;
+            color: var(--primary);
+            margin-left: 1.5vh;
+            background: rgba(211, 47, 47, 0.1);
+            padding: 8px 16px;
+            border-radius: 30px;
+            transition: all 0.3s ease;
+        }
+
+        .menu-item>div {
+            flex: 1;
+        }
+
+        .food-image {
+            width: 100%;
+            height: 100%;
+            max-width: 100%;
+            max-height: 100%;
+            object-fit: cover;
+            border-radius: var(--radius);
+            box-shadow: 0 8px 20px rgba(0, 0, 0, 0.15);
+            transition: opacity 0.5s ease, transform 0.5s ease;
+        }
+
+        .hidden {
+            display: none;
+        }
+
+        h1 {
+            margin: 0;
+            font-size: 5vh;
+            text-shadow: 1px 1px 3px rgba(0, 0, 0, 0.2);
+            position: relative;
+            z-index: 1;
+        }
+
+        h2 {
+            font-size: 3.5vh;
+            margin-top: 1vh;
+            font-weight: 400;
+            position: relative;
+            z-index: 1;
+            opacity: 0.9;
+        }
+
+        .page {
+            display: none;
+            width: 100%;
+            height: 100%;
+            flex-direction: column;
+            flex: 1;
+            overflow: hidden;
+        }
+
+        .page.active {
+            display: flex;
+        }
+
+        .badge {
+            position: absolute;
+            top: 10px;
+            right: 10px;
+            background: var(--accent);
+            color: var(--white);
+            padding: 5px 10px;
+            border-radius: 20px;
+            font-size: 1.5vh;
+            font-weight: bold;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
+        }
+
+        /* Forçar o layout pra caber na tela 1366x768 */
+        .container {
+            width: 100%;
+            height: 100vh;
+            display: flex;
+            flex-direction: column;
+        }
+
+        .header {
+            padding: 1.5vh 0;
+        }
+
+        .image-section {
+            flex: none;
+            height: 35vh;
+        }
+
+        .menu-section {
+            flex: none;
+            height: 45vh;
+            overflow: hidden;
+        }
+
+        .menu-item {
+            padding: 1vh 2vh;
+            margin-bottom: 0.8vh;
+        }
+
+        .item-name {
+            font-size: 2.2vh;
+        }
+
+        .item-description {
+            font-size: 1.5vh;
+        }
+
+        .item-price {
+            font-size: 2vh;
+            padding: 6px 12px;
+        }
+
+        html,
+        body {
+            overflow: hidden;
+        }
+
+
+        /* Responsividade para telas muito pequenas */
+        @media (max-width: 768px) {
+            .content {
+                flex-direction: column;
+            }
+
+            .menu-section {
+                flex: 1;
+                overflow-y: auto;
+            }
+
+            .image-section {
+                flex: 1;
+                min-height: 40vh;
+            }
+
+            .food-image {
+                max-height: 35vh;
+            }
+
+            .category-nav {
+                padding: 1vh;
+                justify-content: flex-start;
+            }
+
+            .category-btn {
+                padding: 1vh 2vh;
+                font-size: 1.8vh;
+            }
+        }
+
+        /* Para telas muito grandes */
+        @media (min-width: 1200px) {
+            .item-name {
+                font-size: 2.2vh;
+            }
+
+            .item-price {
+                font-size: 2.2vh;
+            }
+
+            .menu-item {
+                padding: 1.8vh 1.5vh;
+            }
+        }
+
+        /* Para orientação retrato em celulares */
+        @media (max-width: 768px) and (orientation: portrait) {
+            .header {
+                padding: 1.5vh 0;
+            }
+
+            .category-nav {
+                padding: 1.5vh 0;
+            }
+
+            h1 {
+                font-size: 4vh;
+            }
+
+            h2 {
+                font-size: 2.5vh;
+            }
+        }
+
+        /* Animações */
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+                transform: translateY(10px);
+            }
+
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .menu-item {
+            animation: fadeIn 0.5s ease forwards;
+        }
+
+        .menu-item:nth-child(1) {
+            animation-delay: 0.1s;
+        }
+
+        .menu-item:nth-child(2) {
+            animation-delay: 0.2s;
+        }
+
+        .menu-item:nth-child(3) {
+            animation-delay: 0.3s;
+        }
+
+        .menu-item:nth-child(4) {
+            animation-delay: 0.4s;
+        }
+
+        .menu-item:nth-child(5) {
+            animation-delay: 0.5s;
+        }
+    </style>
 </head>
-<script src="./javaScript/script.js"></script>
+
 <body>
     <div class="container">
         <div class="header">
-            <h1>🍽️ Cardápio do Restaurante</h1>
+            <h1><i class="fas fa-utensils"></i> Cardápio do Restaurante</h1>
             <h2 id="current-category">Almoços</h2>
         </div>
-        
-        <!-- Título da categoria que muda automaticamente 
-        <div class="category-title">
-            <h2 id="current-category">Almoços</h2>
-        </div>-->
-        
+
         <!-- Página de Almoços -->
         <div class="page active" id="almocos">
             <div class="content">
-
                 <div class="image-section">
-                    <img src="https://via.placeholder.com/800x600/FF6B6B/FFFFFF?text=Lasanha+Bolonhesa" alt="Lasanha" class="food-image" id="lasanha">
-                    <img src="https://via.placeholder.com/800x600/4ECDC4/FFFFFF?text=Frango+Grelhado" alt="Frango" class="food-image hidden" id="frango">
-                    <img src="https://via.placeholder.com/800x600/45B7D1/FFFFFF?text=Salmão+Maracujá" alt="Salmão" class="food-image hidden" id="salmao">
-                    <img src="https://via.placeholder.com/800x600/96CEB4/FFFFFF?text=Risoto+Cogumelos" alt="Risoto" class="food-image hidden" id="risoto">
-                    <img src="https://via.placeholder.com/800x600/F7DC6F/FFFFFF?text=Strogonoff+Carne" alt="Strogonoff" class="food-image hidden" id="strogonoff">
+                    <img src="https://images.unsplash.com/photo-1574894709920-11b28e7367e3?ixlib=rb-1.2.1&auto=format&fit=crop&w=800&q=80"
+                        alt="Lasanha" class="food-image" id="lasanha">
+                    <img src="https://images.unsplash.com/photo-1546833999-b9f581a1996d?ixlib=rb-1.2.1&auto=format&fit=crop&w=800&q=80"
+                        alt="Frango" class="food-image hidden" id="frango">
+                    <img src="https://images.unsplash.com/photo-1467003909585-2f8a72700288?ixlib=rb-1.2.1&auto=format&fit=crop&w=800&q=80"
+                        alt="Salmão" class="food-image hidden" id="salmao">
+                    <img src="https://images.unsplash.com/photo-1476124369491-e7addf5db371?ixlib=rb-1.2.1&auto=format&fit=crop&w=800&q=80"
+                        alt="Risoto" class="food-image hidden" id="risoto">
+                    <img src="https://images.unsplash.com/photo-1563379926898-05f4575a45d8?ixlib=rb-1.2.1&auto=format&fit=crop&w=800&q=80"
+                        alt="Strogonoff" class="food-image hidden" id="strogonoff">
                 </div>
 
                 <div class="menu-section">
                     <div class="menu-list">
-                        <div class="menu-item" data-image="lasanha">
-                            <span class="item-name">Lasanha à Bolonhesa</span>
+                        <div class="menu-item" data-image="frango">
+                            <div>
+                                <span class="item-name">Lasanha à Bolonhesa</span>
+                                <span class="item-description">Massa artesanal com molho bolonhesa e queijos
+                                    selecionados</span>
+                            </div>
                             <span class="item-price">R$ 45,90</span>
                         </div>
                         <div class="menu-item" data-image="frango">
-                            <span class="item-name">Frango Grelhado com Legumes</span>
+                            <div>
+                                <span class="item-name">Frango Grelhado com Legumes</span>
+                                <span class="item-description">Peito de frango grelhado com legumes da estação</span>
+                            </div>
                             <span class="item-price">R$ 32,50</span>
                         </div>
                         <div class="menu-item" data-image="salmao">
-                            <span class="item-name">Salmão ao Molho de Maracujá</span>
+                            <div>
+                                <span class="item-name">Salmão ao Molho de Maracujá</span>
+                                <span class="item-description">Filé de salmão grelhado com molho agridoce de
+                                    maracujá</span>
+                            </div>
                             <span class="item-price">R$ 58,90</span>
                         </div>
                         <div class="menu-item" data-image="risoto">
-                            <span class="item-name">Risoto de Cogumelos Frescos</span>
+                            <div>
+                                <span class="item-name">Risoto de Cogumelos Frescos</span>
+                                <span class="item-description">Risoto cremoso com cogumelos frescos e parmesão</span>
+                            </div>
                             <span class="item-price">R$ 38,75</span>
                         </div>
                         <div class="menu-item" data-image="strogonoff">
-                            <span class="item-name">Strogonoff de Carne com Batata Palha</span>
+                            <div>
+                                <span class="item-name">Strogonoff de Carne com Batata Palha</span>
+                                <span class="item-description">Clássico strogonoff com carne selecionada e batata
+                                    palha</span>
+                            </div>
                             <span class="item-price">R$ 35,90</span>
                         </div>
                     </div>
                 </div>
-
-                
             </div>
         </div>
 
         <!-- Página de Almocinhos -->
         <div class="page" id="almocinhos">
             <div class="content">
-
                 <div class="image-section">
-                    <img src="https://via.placeholder.com/800x600/FF6B6B/FFFFFF?text=Nuggets+Frango" alt="Nuggets" class="food-image" id="nuggets">
-                    <img src="https://via.placeholder.com/800x600/4ECDC4/FFFFFF?text=Espaguete+Bolonhesa" alt="Espaguete" class="food-image hidden" id="bolonhesa">
-                    <img src="https://via.placeholder.com/800x600/45B7D1/FFFFFF?text=Hambúrguer+Infantil" alt="Hambúrguer" class="food-image hidden" id="hamburguer">
-                    <img src="https://via.placeholder.com/800x600/96CEB4/FFFFFF?text=Panqueca+Frango" alt="Panqueca" class="food-image hidden" id="panqueca">
-                    <img src="https://via.placeholder.com/800x600/F7DC6F/FFFFFF?text=Fish+%26+Chips" alt="Fish & Chips" class="food-image hidden" id="fish">
+                    <img src="https://images.unsplash.com/photo-1562967914-608f82629710?ixlib=rb-1.2.1&auto=format&fit=crop&w=800&q=80"
+                        alt="Nuggets" class="food-image" id="nuggets">
+                    <img src="https://images.unsplash.com/photo-1598866594230-a7c12756260f?ixlib=rb-1.2.1&auto=format&fit=crop&w=800&q=80"
+                        alt="Espaguete" class="food-image hidden" id="bolonhesa">
+                    <img src="https://images.unsplash.com/photo-1568901346375-23c9450c58cd?ixlib=rb-1.2.1&auto=format&fit=crop&w=800&q=80"
+                        alt="Hambúrguer" class="food-image hidden" id="hamburguer">
+                    <img src="https://images.unsplash.com/photo-1565299624946-b28f40a0ae38?ixlib=rb-1.2.1&auto=format&fit=crop&w=800&q=80"
+                        alt="Panqueca" class="food-image hidden" id="panqueca">
+                    <img src="https://images.unsplash.com/photo-1579208575657-c595a05383b7?ixlib=rb-1.2.1&auto=format&fit=crop&w=800&q=80"
+                        alt="Fish & Chips" class="food-image hidden" id="fish">
                 </div>
 
                 <div class="menu-section">
                     <div class="menu-list">
                         <div class="menu-item" data-image="nuggets">
-                            <span class="item-name">Nuggets de Frango com Fritas</span>
+                            <div>
+                                <span class="item-name">Nuggets de Frango com Fritas</span>
+                                <span class="item-description">Nuggets crocantes acompanhados de batatas fritas</span>
+                            </div>
                             <span class="item-price">R$ 22,90</span>
                         </div>
                         <div class="menu-item" data-image="bolonhesa">
-                            <span class="item-name">Espaguete à Bolonhesa</span>
+                            <div>
+                                <span class="item-name">Espaguete à Bolonhesa</span>
+                                <span class="item-description">Massa com molho de carne especial para crianças</span>
+                            </div>
                             <span class="item-price">R$ 18,50</span>
                         </div>
                         <div class="menu-item" data-image="hamburguer">
-                            <span class="item-name">Hambúrguer Infantil</span>
+                            <div>
+                                <span class="item-name">Hambúrguer Infantil</span>
+                                <span class="item-description">Hambúrguer especial com queijo e batatas fritas</span>
+                            </div>
                             <span class="item-price">R$ 16,90</span>
                         </div>
                         <div class="menu-item" data-image="panqueca">
-                            <span class="item-name">Panqueca de Frango</span>
+                            <div>
+                                <span class="item-name">Panqueca de Frango</span>
+                                <span class="item-description">Panqueca recheada com frango desfiado e molho
+                                    branco</span>
+                            </div>
                             <span class="item-price">R$ 19,75</span>
                         </div>
                         <div class="menu-item" data-image="fish">
-                            <span class="item-name">Fish & Chips Infantil</span>
+                            <div>
+                                <span class="item-name">Fish & Chips Infantil</span>
+                                <span class="item-description">Filé de peixe empanado com batatas fritas</span>
+                            </div>
                             <span class="item-price">R$ 21,50</span>
                         </div>
                     </div>
                 </div>
-
-                
             </div>
         </div>
 
         <!-- Página de Executivos -->
         <div class="page" id="executivos">
             <div class="content">
-
                 <div class="image-section">
-                    <img src="https://via.placeholder.com/800x600/FF6B6B/FFFFFF?text=Bife+Parmegiana" alt="Bife" class="food-image" id="bife">
-                    <img src="https://via.placeholder.com/800x600/4ECDC4/FFFFFF?text=Filé+Mignon" alt="Filé" class="food-image hidden" id="file">
-                    <img src="https://via.placeholder.com/800x600/45B7D1/FFFFFF?text=Peixe+Grelhado" alt="Peixe" class="food-image hidden" id="peixe">
-                    <img src="https://via.placeholder.com/800x600/96CEB4/FFFFFF?text=Frango+Passarinho" alt="Frango" class="food-image hidden" id="frango-exec">
-                    <img src="https://via.placeholder.com/800x600/F7DC6F/FFFFFF?text=Costela+Barbecue" alt="Costela" class="food-image hidden" id="costela">
+                    <img src="https://images.unsplash.com/photo-1632778149955-e80f8ceca2e8?ixlib=rb-1.2.1&auto=format&fit=crop&w=800&q=80"
+                        alt="Bife" class="food-image" id="bife">
+                    <img src="https://images.unsplash.com/photo-1588168333986-5078d3ae3976?ixlib=rb-1.2.1&auto=format&fit=crop&w=800&q=80"
+                        alt="Filé" class="food-image hidden" id="file">
+                    <img src="https://images.unsplash.com/photo-1599487488170-d11ec9c172f0?ixlib=rb-1.2.1&auto=format&fit=crop&w=800&q=80"
+                        alt="Peixe" class="food-image hidden" id="peixe">
+                    <img src="https://images.unsplash.com/photo-1604503468506-a8da13d82791?ixlib=rb-1.2.1&auto=format&fit=crop&w=800&q=80"
+                        alt="Frango" class="food-image hidden" id="frango-exec">
+                    <img src="https://images.unsplash.com/photo-1546833999-b9f581a1996d?ixlib=rb-1.2.1&auto=format&fit=crop&w=800&q=80"
+                        alt="Costela" class="food-image hidden" id="costela">
                 </div>
 
                 <div class="menu-section">
                     <div class="menu-list">
                         <div class="menu-item" data-image="bife">
-                            <span class="item-name">Bife à Parmegiana</span>
+                            <div>
+                                <span class="item-name">Bife à Parmegiana</span>
+                                <span class="item-description">Bife empanado com molho de tomate e queijo
+                                    derretido</span>
+                            </div>
                             <span class="item-price">R$ 28,90</span>
                         </div>
                         <div class="menu-item" data-image="file">
-                            <span class="item-name">Filé Mignon com Fritas</span>
+                            <div>
+                                <span class="item-name">Filé Mignon com Fritas</span>
+                                <span class="item-description">Filé mignon grelhado com batatas fritas crocantes</span>
+                            </div>
                             <span class="item-price">R$ 34,50</span>
                         </div>
                         <div class="menu-item" data-image="peixe">
-                            <span class="item-name">Filé de Peixe Grelhado</span>
+                            <div>
+                                <span class="item-name">Filé de Peixe Grelhado</span>
+                                <span class="item-description">Filé de peixe grelhado com legumes da estação</span>
+                            </div>
                             <span class="item-price">R$ 26,90</span>
                         </div>
                         <div class="menu-item" data-image="frango-exec">
-                            <span class="item-name">Frango à Passarinho</span>
+                            <div>
+                                <span class="item-name">Frango à Passarinho</span>
+                                <span class="item-description">Frango temperado e frito na perfeição</span>
+                            </div>
                             <span class="item-price">R$ 24,75</span>
                         </div>
                         <div class="menu-item" data-image="costela">
-                            <span class="item-name">Costela ao Molho Barbecue</span>
+                            <div>
+                                <span class="item-name">Costela ao Molho Barbecue</span>
+                                <span class="item-description">Costela suína ao molho barbecue com fritas</span>
+                            </div>
                             <span class="item-price">R$ 32,50</span>
                         </div>
                     </div>
                 </div>
-
-                
             </div>
         </div>
 
         <!-- Página de Pratos do Dia -->
         <div class="page" id="pratos-dia">
             <div class="content">
-
                 <div class="image-section">
-                    <img src="https://via.placeholder.com/800x600/FF6B6B/FFFFFF?text=Feijoada+Completa" alt="Feijoada" class="food-image" id="feijoada">
-                    <img src="https://via.placeholder.com/800x600/4ECDC4/FFFFFF?text=Moqueca+Peixe" alt="Moqueca" class="food-image hidden" id="moqueca">
-                    <img src="https://via.placeholder.com/800x600/45B7D1/FFFFFF?text=Virado+Paulista" alt="Virado" class="food-image hidden" id="virado">
-                    <img src="https://via.placeholder.com/800x600/96CEB4/FFFFFF?text=Bacalhau+Gomes+Sá" alt="Bacalhau" class="food-image hidden" id="bacalhau">
-                    <img src="https://via.placeholder.com/800x600/F7DC6F/FFFFFF?text=Picanha+Chapa" alt="Picanha" class="food-image hidden" id="picanha">
+                    <img src="https://images.unsplash.com/photo-1574943320219-553eb213f72d?ixlib=rb-1.2.1&auto=format&fit=crop&w=800&q=80"
+                        alt="Feijoada" class="food-image" id="feijoada">
+                    <img src="https://images.unsplash.com/photo-1624732821753-445e49b871c1?ixlib=rb-1.2.1&auto=format&fit=crop&w=800&q=80"
+                        alt="Moqueca" class="food-image hidden" id="moqueca">
+                    <img src="https://images.unsplash.com/photo-1626700051175-6818013e0571?ixlib=rb-1.2.1&auto=format&fit=crop&w=800&q=80"
+                        alt="Virado" class="food-image hidden" id="virado">
+                    <img src="https://images.unsplash.com/photo-1626700051175-6818013e0571?ixlib=rb-1.2.1&auto=format&fit=crop&w=800&q=80"
+                        alt="Bacalhau" class="food-image hidden" id="bacalhau">
+                    <img src="https://images.unsplash.com/photo-1594041680534-e8c8cdebd659?ixlib=rb-1.2.1&auto=format&fit=crop&w=800&q=80"
+                        alt="Picanha" class="food-image hidden" id="picanha">
                 </div>
 
                 <div class="menu-section">
                     <div class="menu-list">
                         <div class="menu-item" data-image="feijoada">
-                            <span class="item-name">Feijoada Completa</span>
+                            <div>
+                                <span class="item-name">Feijoada Completa</span>
+                                <span class="item-description">Tradicional feijoada com todas as acompanhamentos</span>
+                            </div>
                             <span class="item-price">R$ 35,90</span>
                         </div>
                         <div class="menu-item" data-image="moqueca">
-                            <span class="item-name">Moqueca de Peixe</span>
+                            <div>
+                                <span class="item-name">Moqueca de Peixe</span>
+                                <span class="item-description">Moqueca de peixe com azeite de dendê e leite de
+                                    coco</span>
+                            </div>
                             <span class="item-price">R$ 42,50</span>
                         </div>
                         <div class="menu-item" data-image="virado">
-                            <span class="item-name">Virado à Paulista</span>
+                            <div>
+                                <span class="item-name">Virado à Paulista</span>
+                                <span class="item-description">Típico prato paulista com tutu de feijão e
+                                    linguiça</span>
+                            </div>
                             <span class="item-price">R$ 29,90</span>
                         </div>
                         <div class="menu-item" data-image="bacalhau">
-                            <span class="item-name">Bacalhau à Gomes de Sá</span>
+                            <div>
+                                <span class="item-name">Bacalhau à Gomes de Sá</span>
+                                <span class="item-description">Bacalhau desfiado com batatas, cebolas e azeitonas</span>
+                            </div>
                             <span class="item-price">R$ 48,75</span>
                         </div>
                         <div class="menu-item" data-image="picanha">
-                            <span class="item-name">Picanha na Chapa</span>
+                            <div>
+                                <span class="item-name">Picanha na Chapa</span>
+                                <span class="item-description">Picanha grelhada na chapa com farofa e vinagrete</span>
+                            </div>
                             <span class="item-price">R$ 39,50</span>
                         </div>
                     </div>
                 </div>
-
-                
             </div>
         </div>
     </div>
-
+    <script src="javaScript/script.js"></script>
 </body>
 </html>
