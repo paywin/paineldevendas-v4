@@ -1,245 +1,36 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="pt-br">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Painel</title>
-    <link rel="stylesheet" href="./css/style.csss">
-    <style>
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-        }
-
-        html, body {
-            width: 100%;
-            height: 100%;
-            overflow: hidden;
-            font-family: Arial, sans-serif;
-            background-color: #f5f5f5;
-        }
-
-        body {
-            padding: 0;
-            display: flex;
-            flex-direction: column;
-        }
-
-        .container {
-            width: 100%;
-            height: 100vh;
-            background: rgb(161, 24, 24);
-            display: flex;
-            flex-direction: column;
-            overflow: hidden;
-        }
-
-        .header {
-            background: #d32f2f;
-            color: white;
-            padding: 2vh 0;
-            text-align: center;
-            flex-shrink: 0;
-        }
-
-        .category-title {
-            background: #f8f8f8;
-            padding: 2vh 0;
-            text-align: center;
-            border-bottom: 2px solid #ddd;
-            flex-shrink: 0;
-        }
-
-        .category-title h2 {
-            font-size: 4vh;
-            color: #d32f2f;
-            margin: 0;
-            border: none;
-            padding: 0;
-        }
-
-        .content {
-            display: flex;
-            flex: 1;
-            overflow: hidden;
-            min-height: 0;
-            flex-direction: column;
-        }
-
-        .menu-section {
-            flex: 1;
-            padding: 2vh;
-            background: #fafafa;
-            overflow-y: auto;
-            display: flex;
-            flex-direction: column;
-        }
-
-        .image-section {
-            flex: 1;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            background: white;
-            padding: 2vh;
-        }
-
-        .menu-list {
-            width: 100%;
-            flex: 1;
-            display: flex;
-            flex-direction: column;
-        }
-
-        .menu-item {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            padding: 2vh 1.5vh;
-            border-bottom: 2px dashed #ccc;
-            transition: all 0.3s ease;
-            width: 100%;
-            flex-shrink: 0;
-        }
-
-        .menu-item:last-child {
-            border-bottom: none;
-        }
-
-        .menu-item.selected {
-            background-color: #ffebee;
-            border-left: 6px solid #d32f2f;
-            padding-left: 1.5vh;
-            transform: scale(1.02);
-            box-shadow: 0 2px 8px rgba(0,0,0,0.1);
-        }
-
-        .item-name {
-            font-size: 2.5vh;
-            color: #333;
-            font-weight: 500;
-            flex: 1;
-        }
-
-        .item-price {
-            font-size: 2.5vh;
-            font-weight: bold;
-            color: #d32f2f;
-            margin-left: 1.5vh;
-        }
-
-        .food-image {
-            width: 100%;
-            height: 100%;
-            max-width: 100%;
-            max-height: 100%;
-            object-fit: contain;
-            border-radius: 10px;
-            box-shadow: 0 6px 12px rgba(0,0,0,0.15);
-            transition: opacity 0.5s ease;
-        }
-
-        .hidden {
-            display: none;
-        }
-
-        h1 {
-            margin: 0;
-            font-size: 5vh;
-        }
-
-        .page {
-            display: none;
-            width: 100%;
-            height: 100%;
-            flex-direction: column;
-            flex: 1;
-            overflow: hidden;
-        }
-
-        .page.active {
-            display: flex;
-        }
-
-        /* Responsividade para telas muito pequenas */
-        @media (max-width: 768px) {
-            .content {
-                flex-direction: column;
-            }
-            
-            .menu-section {
-                flex: 1;
-                overflow-y: auto;
-            }
-            
-            .image-section {
-                flex: 1;
-                min-height: 40vh;
-            }
-            
-            .food-image {
-                max-height: 35vh;
-            }
-        }
-
-        /* Para telas muito grandes */
-        @media (min-width: 1200px) {
-            .item-name {
-                font-size: 2.2vh;
-            }
-            
-            .item-price {
-                font-size: 2.2vh;
-            }
-            
-            .menu-item {
-                padding: 1.8vh 1.5vh;
-            }
-        }
-
-        /* Para orientação retrato em celulares */
-        @media (max-width: 768px) and (orientation: portrait) {
-            .header {
-                padding: 1.5vh 0;
-            }
-            
-            .category-title {
-                padding: 1.5vh 0;
-            }
-            
-            h1 {
-                font-size: 4vh;
-            }
-            
-            .category-title h2 {
-                font-size: 3vh;
-            }
-        }
-    </style>
+    <title>Cardápio Interativo</title>
+    <link rel="stylesheet" href="./css/style.css">
 </head>
-
+<script src="./javaScript/script.js"></script>
 <body>
     <div class="container">
         <div class="header">
             <h1>🍽️ Cardápio do Restaurante</h1>
-        </div>
-        
-        <!-- Título da categoria que muda automaticamente -->
-        <div class="category-title">
             <h2 id="current-category">Almoços</h2>
         </div>
+        
+        <!-- Título da categoria que muda automaticamente 
+        <div class="category-title">
+            <h2 id="current-category">Almoços</h2>
+        </div>-->
         
         <!-- Página de Almoços -->
         <div class="page active" id="almocos">
             <div class="content">
+
                 <div class="image-section">
-                    <img src="https://via.placeholder.com/800x600/45B7D1/FFFFFF?text=Salmão+Maracujá" alt="Lasanha" class="food-image" id="lasanha">
-                    <img src="https://via.placeholder.com/800x600/45B7D1/FFFFFF?text=Salmão+Maracujá" alt="Frango" class="food-image hidden" id="frango">
+                    <img src="https://via.placeholder.com/800x600/FF6B6B/FFFFFF?text=Lasanha+Bolonhesa" alt="Lasanha" class="food-image" id="lasanha">
+                    <img src="https://via.placeholder.com/800x600/4ECDC4/FFFFFF?text=Frango+Grelhado" alt="Frango" class="food-image hidden" id="frango">
                     <img src="https://via.placeholder.com/800x600/45B7D1/FFFFFF?text=Salmão+Maracujá" alt="Salmão" class="food-image hidden" id="salmao">
-                    <img src="https://via.placeholder.com/800x600/45B7D1/FFFFFF?text=Salmão+Maracujá" alt="Risoto" class="food-image hidden" id="risoto">
-                    <img src="https://via.placeholder.com/800x600/45B7D1/FFFFFF?text=Salmão+Maracujá" alt="Strogonoff" class="food-image hidden" id="strogonoff">
+                    <img src="https://via.placeholder.com/800x600/96CEB4/FFFFFF?text=Risoto+Cogumelos" alt="Risoto" class="food-image hidden" id="risoto">
+                    <img src="https://via.placeholder.com/800x600/F7DC6F/FFFFFF?text=Strogonoff+Carne" alt="Strogonoff" class="food-image hidden" id="strogonoff">
                 </div>
+
                 <div class="menu-section">
                     <div class="menu-list">
                         <div class="menu-item" data-image="lasanha">
@@ -264,166 +55,134 @@
                         </div>
                     </div>
                 </div>
+
+                
             </div>
         </div>
 
-        <!-- Página de Sobremesas -->
-        <div class="page" id="sobremesas">
+        <!-- Página de Almocinhos -->
+        <div class="page" id="almocinhos">
             <div class="content">
+
                 <div class="image-section">
-                    <img src="https://via.placeholder.com/800x600/FF6B6B/FFFFFF?text=Pudim+Leite" alt="Pudim" class="food-image" id="pudim">
-                    <img src="https://via.placeholder.com/800x600/4ECDC4/FFFFFF?text=Mousse+Chocolate" alt="Mousse" class="food-image hidden" id="mousse">
-                    <img src="https://via.placeholder.com/800x600/45B7D1/FFFFFF?text=Cheesecake+Morango" alt="Cheesecake" class="food-image hidden" id="cheesecake">
-                    <img src="https://via.placeholder.com/800x600/96CEB4/FFFFFF?text=Sorvete+Baunilha" alt="Sorvete" class="food-image hidden" id="sorvete">
-                    <img src="https://via.placeholder.com/800x600/F7DC6F/FFFFFF?text=Tiramisù+Italiano" alt="Tiramisù" class="food-image hidden" id="tiramisu">
+                    <img src="https://via.placeholder.com/800x600/FF6B6B/FFFFFF?text=Nuggets+Frango" alt="Nuggets" class="food-image" id="nuggets">
+                    <img src="https://via.placeholder.com/800x600/4ECDC4/FFFFFF?text=Espaguete+Bolonhesa" alt="Espaguete" class="food-image hidden" id="bolonhesa">
+                    <img src="https://via.placeholder.com/800x600/45B7D1/FFFFFF?text=Hambúrguer+Infantil" alt="Hambúrguer" class="food-image hidden" id="hamburguer">
+                    <img src="https://via.placeholder.com/800x600/96CEB4/FFFFFF?text=Panqueca+Frango" alt="Panqueca" class="food-image hidden" id="panqueca">
+                    <img src="https://via.placeholder.com/800x600/F7DC6F/FFFFFF?text=Fish+%26+Chips" alt="Fish & Chips" class="food-image hidden" id="fish">
                 </div>
+
                 <div class="menu-section">
                     <div class="menu-list">
-                        <div class="menu-item" data-image="pudim">
-                            <span class="item-name">Pudim de Leite Condensado</span>
-                            <span class="item-price">R$ 12,90</span>
+                        <div class="menu-item" data-image="nuggets">
+                            <span class="item-name">Nuggets de Frango com Fritas</span>
+                            <span class="item-price">R$ 22,90</span>
                         </div>
-                        <div class="menu-item" data-image="mousse">
-                            <span class="item-name">Mousse de Chocolate Belga</span>
-                            <span class="item-price">R$ 10,50</span>
-                        </div>
-                        <div class="menu-item" data-image="cheesecake">
-                            <span class="item-name">Cheesecake de Morango com Calda</span>
-                            <span class="item-price">R$ 15,90</span>
-                        </div>
-                        <div class="menu-item" data-image="sorvete">
-                            <span class="item-name">Sorvete Artesanal de Baunilha</span>
-                            <span class="item-price">R$ 8,75</span>
-                        </div>
-                        <div class="menu-item" data-image="tiramisu">
-                            <span class="item-name">Tiramisù Tradicional Italiano</span>
+                        <div class="menu-item" data-image="bolonhesa">
+                            <span class="item-name">Espaguete à Bolonhesa</span>
                             <span class="item-price">R$ 18,50</span>
+                        </div>
+                        <div class="menu-item" data-image="hamburguer">
+                            <span class="item-name">Hambúrguer Infantil</span>
+                            <span class="item-price">R$ 16,90</span>
+                        </div>
+                        <div class="menu-item" data-image="panqueca">
+                            <span class="item-name">Panqueca de Frango</span>
+                            <span class="item-price">R$ 19,75</span>
+                        </div>
+                        <div class="menu-item" data-image="fish">
+                            <span class="item-name">Fish & Chips Infantil</span>
+                            <span class="item-price">R$ 21,50</span>
                         </div>
                     </div>
                 </div>
+
+                
+            </div>
+        </div>
+
+        <!-- Página de Executivos -->
+        <div class="page" id="executivos">
+            <div class="content">
+
+                <div class="image-section">
+                    <img src="https://via.placeholder.com/800x600/FF6B6B/FFFFFF?text=Bife+Parmegiana" alt="Bife" class="food-image" id="bife">
+                    <img src="https://via.placeholder.com/800x600/4ECDC4/FFFFFF?text=Filé+Mignon" alt="Filé" class="food-image hidden" id="file">
+                    <img src="https://via.placeholder.com/800x600/45B7D1/FFFFFF?text=Peixe+Grelhado" alt="Peixe" class="food-image hidden" id="peixe">
+                    <img src="https://via.placeholder.com/800x600/96CEB4/FFFFFF?text=Frango+Passarinho" alt="Frango" class="food-image hidden" id="frango-exec">
+                    <img src="https://via.placeholder.com/800x600/F7DC6F/FFFFFF?text=Costela+Barbecue" alt="Costela" class="food-image hidden" id="costela">
+                </div>
+
+                <div class="menu-section">
+                    <div class="menu-list">
+                        <div class="menu-item" data-image="bife">
+                            <span class="item-name">Bife à Parmegiana</span>
+                            <span class="item-price">R$ 28,90</span>
+                        </div>
+                        <div class="menu-item" data-image="file">
+                            <span class="item-name">Filé Mignon com Fritas</span>
+                            <span class="item-price">R$ 34,50</span>
+                        </div>
+                        <div class="menu-item" data-image="peixe">
+                            <span class="item-name">Filé de Peixe Grelhado</span>
+                            <span class="item-price">R$ 26,90</span>
+                        </div>
+                        <div class="menu-item" data-image="frango-exec">
+                            <span class="item-name">Frango à Passarinho</span>
+                            <span class="item-price">R$ 24,75</span>
+                        </div>
+                        <div class="menu-item" data-image="costela">
+                            <span class="item-name">Costela ao Molho Barbecue</span>
+                            <span class="item-price">R$ 32,50</span>
+                        </div>
+                    </div>
+                </div>
+
+                
+            </div>
+        </div>
+
+        <!-- Página de Pratos do Dia -->
+        <div class="page" id="pratos-dia">
+            <div class="content">
+
+                <div class="image-section">
+                    <img src="https://via.placeholder.com/800x600/FF6B6B/FFFFFF?text=Feijoada+Completa" alt="Feijoada" class="food-image" id="feijoada">
+                    <img src="https://via.placeholder.com/800x600/4ECDC4/FFFFFF?text=Moqueca+Peixe" alt="Moqueca" class="food-image hidden" id="moqueca">
+                    <img src="https://via.placeholder.com/800x600/45B7D1/FFFFFF?text=Virado+Paulista" alt="Virado" class="food-image hidden" id="virado">
+                    <img src="https://via.placeholder.com/800x600/96CEB4/FFFFFF?text=Bacalhau+Gomes+Sá" alt="Bacalhau" class="food-image hidden" id="bacalhau">
+                    <img src="https://via.placeholder.com/800x600/F7DC6F/FFFFFF?text=Picanha+Chapa" alt="Picanha" class="food-image hidden" id="picanha">
+                </div>
+
+                <div class="menu-section">
+                    <div class="menu-list">
+                        <div class="menu-item" data-image="feijoada">
+                            <span class="item-name">Feijoada Completa</span>
+                            <span class="item-price">R$ 35,90</span>
+                        </div>
+                        <div class="menu-item" data-image="moqueca">
+                            <span class="item-name">Moqueca de Peixe</span>
+                            <span class="item-price">R$ 42,50</span>
+                        </div>
+                        <div class="menu-item" data-image="virado">
+                            <span class="item-name">Virado à Paulista</span>
+                            <span class="item-price">R$ 29,90</span>
+                        </div>
+                        <div class="menu-item" data-image="bacalhau">
+                            <span class="item-name">Bacalhau à Gomes de Sá</span>
+                            <span class="item-price">R$ 48,75</span>
+                        </div>
+                        <div class="menu-item" data-image="picanha">
+                            <span class="item-name">Picanha na Chapa</span>
+                            <span class="item-price">R$ 39,50</span>
+                        </div>
+                    </div>
+                </div>
+
+                
             </div>
         </div>
     </div>
-
-<script src="./javaScript/script.jss">
-    document.addEventListener('DOMContentLoaded', function() {
-            const pages = document.querySelectorAll('.page');
-            const categoryTitle = document.getElementById('current-category');
-            const pageOrder = ['almocos', 'sobremesas'];
-            const categoryNames = {
-                'almocos': 'Almoços',
-                'sobremesas': 'Sobremesas'
-            };
-            let currentPageIndex = 0;
-            let currentIndex = 0;
-            let interval;
-
-            // Função para ajustar o layout baseado na orientação
-            function adjustLayout() {
-                const content = document.querySelector('.content');
-                if (window.innerWidth <= 768) {
-                    document.body.style.flexDirection = 'column';
-                } else {
-                    document.body.style.flexDirection = 'row';
-                }
-            }
-
-            // Função para mudar de página
-            function changePage(pageIndex) {
-                const pageId = pageOrder[pageIndex];
-                
-                // Atualiza as páginas
-                pages.forEach(page => {
-                    page.classList.remove('active');
-                    if (page.id === pageId) {
-                        page.classList.add('active');
-                    }
-                });
-
-                // Atualiza o título da categoria
-                categoryTitle.textContent = categoryNames[pageId];
-
-                currentPageIndex = pageIndex;
-                currentIndex = 0;
-                
-                // Reinicia a seleção automática
-                restartAutoSelection();
-            }
-
-            // Função para selecionar um item na página atual
-            function selectItem(index) {
-                const currentPageId = pageOrder[currentPageIndex];
-                const currentPageElement = document.getElementById(currentPageId);
-                const menuItems = currentPageElement.querySelectorAll('.menu-item');
-                const foodImages = currentPageElement.querySelectorAll('.food-image');
-                
-                // Remove a seleção de todos os itens
-                menuItems.forEach(item => item.classList.remove('selected'));
-                
-                // Esconde todas as imagens
-                foodImages.forEach(img => img.classList.add('hidden'));
-                
-                // Seleciona o item atual
-                if (menuItems[index]) {
-                    menuItems[index].classList.add('selected');
-                    
-                    // Mostra a imagem correspondente
-                    const imageId = menuItems[index].getAttribute('data-image');
-                    const correspondingImage = document.getElementById(imageId);
-                    if (correspondingImage) {
-                        correspondingImage.classList.remove('hidden');
-                    }
-                }
-                
-                currentIndex = index;
-            }
-
-            // Função para avançar para o próximo item
-            function nextItem() {
-                const currentPageId = pageOrder[currentPageIndex];
-                const currentPageElement = document.getElementById(currentPageId);
-                const menuItems = currentPageElement.querySelectorAll('.menu-item');
-                
-                if (menuItems.length > 0) {
-                    // Se chegou no último item, muda de página
-                    if (currentIndex >= menuItems.length - 1) {
-                        // Vai para a próxima página
-                        currentPageIndex = (currentPageIndex + 1) % pageOrder.length;
-                        changePage(currentPageIndex);
-                    } else {
-                        // Avança para o próximo item na mesma página
-                        currentIndex++;
-                        selectItem(currentIndex);
-                    }
-                }
-            }
-
-            // Inicia a seleção automática
-            function startAutoSelection() {
-                interval = setInterval(nextItem, 5000); // 5 segundos
-            }
-
-            // Para a seleção automática
-            function stopAutoSelection() {
-                clearInterval(interval);
-            }
-
-            // Reinicia a seleção automática
-            function restartAutoSelection() {
-                stopAutoSelection();
-                selectItem(0); // Seleciona o primeiro item
-                startAutoSelection();
-            }
-
-            // Event listeners para responsividade
-            window.addEventListener('resize', adjustLayout);
-            window.addEventListener('orientationchange', adjustLayout);
-
-            // Inicia a seleção automática na primeira página
-            adjustLayout(); // Ajusta o layout inicial
-            restartAutoSelection();
-        });
-</script>
 
 </body>
 </html>

@@ -1,10 +1,12 @@
 document.addEventListener('DOMContentLoaded', function() {
             const pages = document.querySelectorAll('.page');
             const categoryTitle = document.getElementById('current-category');
-            const pageOrder = ['almocos', 'sobremesas'];
+            const pageOrder = ['almocos', 'almocinhos', 'executivos', 'pratos-dia'];
             const categoryNames = {
                 'almocos': 'Almoços',
-                'sobremesas': 'Sobremesas'
+                'almocinhos': 'Almocinhos',
+                'executivos': 'Executivos',
+                        'pratos-dia': 'Pratos do Dia'
             };
             let currentPageIndex = 0;
             let currentIndex = 0;
@@ -92,7 +94,7 @@ document.addEventListener('DOMContentLoaded', function() {
 
             // Inicia a seleção automática
             function startAutoSelection() {
-                interval = setInterval(nextItem, 5000); // 5 segundos
+                interval = setInterval(nextItem, 2000); // 5 segundos
             }
 
             // Para a seleção automática
