@@ -1,0 +1,84 @@
+@charset "UTF-8";
+
+body {
+	background-color: gray;
+	color: rgba(0,0,0,1);
+}
+/*Formatção Interface */
+div#interfacepa {
+	width: 900px;
+	background-color: #000;
+	margin: 10px auto 5px auto;
+	box-shadow: 0px 0px 5px rgba(0,0,0,.5);
+	padding: 0px 10px 15px 20px;
+}
+
+/*Formatção Cabeçalho */
+header#cabecalhopa img#icone {
+	position: relative;
+	height: 100px;
+	width: 90%;	
+}
+header#cabecalhopa {
+	border-bottom: 1px #606060 solid;
+	height: 160px;
+}
+header#cabecalhopa h1 {
+	font-family: Arial, sans-serif;
+	font-size: 25px;
+	line-height: 0;
+	color: #0000FF;
+}
+header#cabecalhopa h2 {
+	font-family: Arial, sans-serif;
+	font-size: 15px;
+	color: #fff;
+	line-height: 0.5;
+}
+
+/*Formatção corpo interfacepa */
+section#corpo {
+	display: block;
+	width: 430px;
+	float: left;
+	margin-left: 15px;
+	border-right: 1px solid grey;
+}
+aside#lateral {
+	display: block;
+	width: 430px;
+	float: right;
+	margin-right: 15px;
+}
+
+footer#rodape {
+	clear: both; 
+	
+}
+
+/*Formatção Painel Almoço */
+
+header#painelalmoco h1 {
+	font-family: Arial, sans-serif;
+	font-size: 17px;
+	color: gray;
+	line-height: 0.2;
+	margin-bottom: 35px;
+	display: flex;
+	justify-content: center;	
+}
+header#painelalmoco h2 {
+	font-family: Arial, sans-serif;
+	font-size: 15px;
+	line-height: 0.7;
+	color: #307242;
+}
+
+header#painelalmoco h3 {
+	font-family: Arial, sans-serif;
+	font-size: 20px;
+	line-height: 0.1;
+	color: #fff;
+	margin-bottom: 1px;
+}
+	
