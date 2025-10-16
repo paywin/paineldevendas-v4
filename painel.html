@@ -1,0 +1,178 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+
+<head>
+	<meta charset="UTF-8" />
+	<title>Painel de Controle Almoço</title>
+	<link rel="stylesheet" type="text/css" href="./css/painel.css" />
+
+
+</head>
+
+<body>
+	<div id="interfacepa">
+		<header id="cabecalhopa">
+			<figure width="0" height="0">
+				<img id="icone" class="logo" src="./assets/logopeq.png" />
+				<figcaption>
+					<h2 align="center">O melhor sabor da região na hora mais gostosa do dia</h2>
+					<h1 style="text-align:center">Painel de Controle das Opções</h1>
+				</figcaption>
+			</figure>
+		</header>
+
+		<header id="painelalmoco">
+			<section id="corpo">
+				<div id="almToscFrango">
+					<h3 style="color: rgba(221, 111, 1, 0.859);">Toscana<label style="float: right;"><input class="reload" id="check30" type="checkbox" onclick="check30()" name="almToscana" 
+						checked>Mostrar &nbsp&nbsp&nbsp&nbsp</label><hr></h3>
+				</div>
+				<br>
+				<div id="almFigAceb">
+					<h3 style="color: rgba(221, 111, 1, 0.859);">Figado Acebolado<label style="float: right;"><input class="reload" id="check31" type="checkbox" onclick="check31()" name="almFigado"
+						checked>Mostrar &nbsp&nbsp&nbsp&nbsp</label><hr></h3>
+				</div>
+				<br>
+				<div id="almGaliGuis">
+					<h3 style="color: rgba(221, 111, 1, 0.859);">Galinha Guisada<label style="float: right;"><input class="reload" id="check32" type="checkbox" onclick="check32()" name="almGalGuisada"
+						checked>Mostrar &nbsp&nbsp&nbsp&nbsp</label><hr></h3>
+				</div>
+				<br>
+				<div id="almGaliAssad">
+					<h3 style="color: rgba(221, 111, 1, 0.859);">Galinha Assada<label style="float: right;"><input class="reload" id="check33" type="checkbox" onclick="check33()" name="almGalAssad"
+						checked>Mostrar &nbsp&nbsp&nbsp&nbsp</label><hr></h3>
+				</div>
+				<br>
+				<div id="almCarnGuis">
+					<h3 style="color: rgba(221, 111, 1, 0.859);">Carne Guisada<label style="float: right;"><input class="reload" id="check34" type="checkbox" onclick="check34()" name="almCarGuis"
+						checked>Mostrar &nbsp&nbsp&nbsp&nbsp</label><hr></h3>
+				</div>
+				<br>
+				<div id="almBifeAceb">
+					<h3 style="color: rgba(221, 111, 1, 0.859);">Bife Acebolado<label style="float: right;"><input class="reload" id="check35" type="checkbox" onclick="check35()" name="almBife"
+						checked>Mostrar &nbsp&nbsp&nbsp&nbsp</label><hr></h3>
+				</div>
+				<br>
+				<div id="almBistAceb">
+					<h3 style="color: rgba(221, 111, 1, 0.859);">Bisteca Acebolada<label style="float: right;"><input class="reload" id="check36" type="checkbox" onclick="check36()" name="almBisteca"
+						checked>Mostrar &nbsp&nbsp&nbsp&nbsp</label><hr></h3>
+				</div>
+				<br>
+				<div id="almchToscFrango">
+					<h3 style="color: red;">Toscana Eco.<label style="float: right;"><input class="reload" id="check37" type="checkbox" onclick="check37()" name="almchToscana"
+						checked>Mostrar &nbsp&nbsp&nbsp&nbsp</label><hr></h3>
+				</div>
+				<br>
+				<div id="almchGaliGuisa">
+					<h3 style="color: red;">Galinha Guis. Eco.<label style="float: right;"><input class="reload" id="check38" type="checkbox" onclick="check38()" name="almchGalGuis"
+						checked>Mostrar &nbsp&nbsp&nbsp&nbsp</label><hr></h3>
+				</div>
+				<br>
+				<div id="lmchFigaAceb">
+					<h3 style="color: red;">Figado Eco.<label style="float: right;"><input class="reload" id="check39" type="checkbox" onclick="check39()" name="almchFigado"
+						checked>Mostrar &nbsp&nbsp&nbsp&nbsp</label><hr></h3>
+				</div>
+				<br>
+				<div id="almchGaliAssad'">
+					<h3 style="color: red;">Galinha Ass. Eco.<label style="float: right;"><input class="reload" id="check40" type="checkbox" onclick="check40()" name="almchGalAssad" checked>Mostrar &nbsp&nbsp&nbsp&nbsp</label>
+						<hr></h3>
+				</div>
+				<br>
+				<div id="almchCarnGuisa">
+					<h3 style="color: red;">Carne Guis. Eco.<label style="float: right;"><input class="reload" id="check41" type="checkbox" onclick="check41()" name="almchCarGuis"
+						checked>Mostrar &nbsp&nbsp&nbsp&nbsp</label><hr></h3>
+				</div>
+				<br>
+				<div id="prtDiaArrumCharque">
+					<h3 style="color: rgb(203, 158, 20);">Arrumadinho de Charque<label style="float: right;"><input class="reload" id="check42" type="checkbox" onclick="check42()" name="prtDiaArrumCharque"
+						checked>Mostrar &nbsp&nbsp&nbsp&nbsp</label><hr></h3>
+				</div>
+				<br>
+				<div id="prtDiaArrumSol">
+					<h3 style="color: rgb(203, 158, 20);">Arrumadinho de Sol<label style="float: right;"><input class="reload" id="check43" type="checkbox" onclick="check43()" name="prtDiaArrumSol"
+						checked>Mostrar &nbsp&nbsp&nbsp&nbsp</label><hr></h3>
+				</div>
+
+			</section>
+		
+			<aside id="lateral">
+
+				<div id="prtDiaParmFrango">
+					<h3 style="color: rgb(203, 158, 20);">&nbsp Parmegiana de Frango<label style="float: right;"><input class="reload" id="check44" type="checkbox" onclick="check44()" name="prtDiaParmFrango"
+						checked>Mostrar &nbsp&nbsp&nbsp&nbsp</label><hr></h3>
+				</div>
+				<br>
+				<div id="prtDiaCumpim">
+					<h3 style="color: rgb(203, 158, 20);">&nbsp Bobo de Camarão<label style="float: right;"><input class="reload" id="check45" type="checkbox" onclick="check45()" name="prtDiaCumpim"
+						checked>Mostrar &nbsp&nbsp&nbsp&nbsp</label><hr></h3>
+				</div>
+				<br>
+				<div id="prtDiaStrogFrango">
+					<h3 style="color: rgb(203, 158, 20);">&nbsp Strogonoff de Frango<label  style="float: right;"><input class="reload" id="check46" type="checkbox" onclick="check46()" name="prtDiaStrogFrango"
+						checked>Mostrar &nbsp&nbsp&nbsp&nbsp</label><hr></h3>
+				</div>
+				<br>
+				<div id="prtDiaLasaFrango">
+					<h3 style="color: rgb(203, 158, 20);">&nbsp Lasanha de Frango<label  style="float: right;"><input class="reload" id="check47" type="checkbox" onclick="check47()" name="prtDiaLasaFrango"
+						checked>Mostrar &nbsp&nbsp&nbsp&nbsp</label><hr></h3>
+				</div>
+				<br>
+				<div id="prtDiaLasaCarne">
+					<h3 style="color: rgb(203, 158, 20);">&nbsp Lasanha de Carne<label  style="float: right;"><input class="reload" id="check48" type="checkbox" onclick="check48()" name="prtDiaLasaCarne"
+						checked>Mostrar &nbsp&nbsp&nbsp&nbsp</label><hr></h3>
+				</div>
+				<br>
+				<div id="prtDiaPeixFrito">
+					<h3 style="color: rgb(203, 158, 20);">&nbsp Peixe Frito<label  style="float: right;"><input class="reload" id="check49" type="checkbox" onclick="check49()" name="prtDiaPeixFrito"
+						checked>Mostrar &nbsp&nbsp&nbsp&nbsp</label><hr></h3>
+				</div>
+				<br>
+				<div id="prtDiaPeixCoco">
+					<h3 style="color: rgb(203, 158, 20);">&nbsp Peixe ao Coco<label  style="float: right;"><input class="reload" id="check50" type="checkbox" onclick="check50()" name="prtDiaPeixCoco"
+						checked>Mostrar &nbsp&nbsp&nbsp&nbsp</label><hr></h3>
+				</div>
+				<br>
+				<div id="prtDiaMaoVaca">
+					<h3 style="color: rgb(203, 158, 20);">&nbsp Mão de Vaca<label  style="float: right;"><input class="reload" id="check51" type="checkbox" onclick="check51()" name="prtDiaMaoVaca"
+						checked>Mostrar &nbsp&nbsp&nbsp&nbsp</label><hr></h3>
+				</div>
+				<br>
+				<div id="execCarnSol">
+					<h3 style="color: green;">&nbsp Carne de Sol<label  style="float: right;"><input class="reload" id="check52" type="checkbox" onclick="check52()" name="execCarnSol"
+						checked>Mostrar &nbsp&nbsp&nbsp&nbsp</label><hr></h3>
+				</div>
+				<br>
+				<div id="execPicPorco">
+					<h3 style="color: green;">&nbsp Picanha de Porco<label  style="float: right;"><input class="reload" id="check53" type="checkbox" onclick="check53()" name="execPicPorco"
+						checked>Mostrar &nbsp&nbsp&nbsp&nbsp</label><hr></h3>
+				</div>
+				<br>
+				<div id="execMaminha">
+					<h3 style="color: green;">&nbsp Maminha<label  style="float: right;"><input class="reload" id="check54" type="checkbox" onclick="check54()" name="figeco"
+						checked>Mostrar &nbsp&nbsp&nbsp&nbsp</label><hr></h3>
+				</div>
+				<br>
+				<div id="execPicBoi">
+					<h3 style="color: green;">&nbsp Picanha de Boi<label  style="float: right;"><input class="reload" id="check55" type="checkbox" onclick="check55()" name="execMaminha"
+						checked>Mostrar &nbsp&nbsp&nbsp&nbsp</label><hr></h3>
+				</div>
+				<br>
+				<div id="execFilMig">
+					<h3 style="color: green;">&nbsp Filé Mignon<label  style="float: right;"><input class="reload" id="check56" type="checkbox" onclick="check56()" name="execFilMig"
+						checked>Mostrar &nbsp&nbsp&nbsp&nbsp</label><hr></h3>
+				</div>
+			</aside>
+		</header>
+
+		<input type="checkbox" id="myCheckbox"> Alterar Estado
+
+		<footer id="rodape">
+			<h4 style="text-align:center; text-decoration: line-through"><span style="color: #307242" "font-size:20px"
+					;> </span></h4>
+		</footer>
+
+	</div>
+
+</body>
+
+</html>
