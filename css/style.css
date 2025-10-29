@@ -235,6 +235,13 @@
             display: flex;
         }
 
+        .food-imag.remover {
+            display: none;
+        }
+        .menu-ite.remover {
+            display: none;
+        }
+
         /* Responsividade para telas muito pequenas */
         @media (max-width: 768px) {
             .content {
