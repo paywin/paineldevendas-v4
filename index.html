@@ -6,8 +6,8 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Cardápio</title>
     <link rel="stylesheet" type="text/css" href="./css/style.css" />
-
 </head>
+
 <body>
     <div class="container">
         <div class="header">
@@ -19,24 +19,29 @@
         <div class="page active" id="almocos">
             <div class="content">
                 <div class="image-section">
-                    <img src="./image/Lasanha.jpg" alt="Lasanha" class="food-image" id="lasanha">
+                    <img src="./image/Lasanha.jpg" alt="Lasanha" class="food-imag" id="imgLasanha">
                     <img src="./image/Arrumadinho.jpg" alt="Frango" class="food-image hidden" id="frango">
                     <img src="./image/Parmegiana.jpg" alt="Salmão" class="food-image hidden" id="salmao">
                     <img src="./image/Lasanha.jpg" alt="Risoto" class="food-image hidden" id="risoto">
                     <img src="./image/Parmegiana.jpg" alt="Strogonoff" class="food-image hidden" id="strogonoff">
                 </div>
+                
                 <div class="menu-section">
                     <div class="menu-list">
-                        <div class="menu-item" data-image="frango">
+                        <div class="menu-ite" data-image="imgLasanha" id="lasanha">
                             <div>
-                                <span class="item-name">Lasanha à Bolonhesa</span>
-                                <span class="item-description">Massa artesanal com molho bolonhesa e queijos
-                                    selecionados</span>
+                                <span class="item-name">Toscana de Frango</span>
+                                <span class="item-description">Peito de frango grelhado com legumes da estação</span>
+                            </div>
+                            <div class="price-container">
+                                <span class="currency">R$</span>
+                                <span class="price-main">32</span>
+                                <span class="price-decimal">,50</span>
                             </div>
                         </div>
                         <div class="menu-item" data-image="frango">
                             <div>
-                                <span class="item-name">Frango Grelhado com Legumes</span>
+                                <span class="item-name">frango frito</span>
                                 <span class="item-description">Peito de frango grelhado com legumes da estação</span>
                             </div>
                             <div class="price-container">
@@ -289,7 +294,6 @@
                 </div>
             </div>
         </div>
-
-   <script src="javaScript/script.js"></script>
+    <script src="javaScript/script.js"></script>
 </body>
 </html>
