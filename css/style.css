@@ -183,6 +183,8 @@
             color: var(--primary);
             vertical-align: super;
             line-height: 0;
+            position: relative; /* Define a posição relativa para que a propriedade 'top' funcione */
+            bottom: 0.7em; /* Move os centavos para cima em relação à sua posição normal */
         }
 
         .menu-item.selected .currency,
