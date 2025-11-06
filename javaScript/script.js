@@ -22,6 +22,29 @@ document.addEventListener('DOMContentLoaded', function () {
         }
     }
 
+    // Função auxiliar para verificar se uma página tem itens visíveis
+    function pageHasVisibleItems(pageId) {
+        const pageElement = document.getElementById(pageId);
+        const visibleItems = pageElement.querySelectorAll('.menu-item:not(.remover)');
+        return visibleItems.length > 0;
+    }
+
+    // Função para encontrar a próxima página com itens visíveis
+    function findNextPageWithItems(startIndex) {
+        let nextIndex = (startIndex + 1) % pageOrder.length;
+        let attempts = 0;
+        
+        while (attempts < pageOrder.length) {
+            if (pageHasVisibleItems(pageOrder[nextIndex])) {
+                return nextIndex;
+            }
+            nextIndex = (nextIndex + 1) % pageOrder.length;
+            attempts++;
+        }
+        
+        return startIndex; // Retorna a página atual se nenhuma tiver itens
+    }
+
     // Função para mudar de página
     function changePage(pageIndex) {
         const pageId = pageOrder[pageIndex];
@@ -40,6 +63,21 @@ document.addEventListener('DOMContentLoaded', function () {
         currentPageIndex = pageIndex;
         currentIndex = 0;
 
+        // Verifica se a página atual tem itens visíveis
+        const currentPageElement = document.getElementById(pageId);
+        const visibleItems = currentPageElement.querySelectorAll('.menu-item:not(.remover)');
+        
+        // Se não há itens visíveis, avança para a próxima página automaticamente
+        if (visibleItems.length === 0) {
+            setTimeout(() => {
+                const nextPageIndex = findNextPageWithItems(currentPageIndex);
+                if (nextPageIndex !== currentPageIndex) {
+                    changePage(nextPageIndex);
+                }
+            }, 100); // Pequeno delay para evitar loop infinito
+            return;
+        }
+
         // Reinicia a seleção automática
         restartAutoSelection();
     }
@@ -48,8 +86,8 @@ document.addEventListener('DOMContentLoaded', function () {
     function selectItem(index) {
         const currentPageId = pageOrder[currentPageIndex];
         const currentPageElement = document.getElementById(currentPageId);
-        const menuItems = currentPageElement.querySelectorAll('.menu-item');
-        const foodImages = currentPageElement.querySelectorAll('.food-image');
+        const menuItems = currentPageElement.querySelectorAll('.menu-item:not(.remover)'); // Só considera itens visíveis
+        const foodImages = currentPageElement.querySelectorAll('.food-image:not(.remover)'); // Só considera imagens visíveis
 
         // Remove a seleção de todos os itens
         menuItems.forEach(item => item.classList.remove('selected'));
@@ -57,15 +95,17 @@ document.addEventListener('DOMContentLoaded', function () {
         // Esconde todas as imagens
         foodImages.forEach(img => img.classList.add('hidden'));
 
-        // Seleciona o item atual
+        // Seleciona o item atual apenas se existir
         if (menuItems[index]) {
             menuItems[index].classList.add('selected');
 
             // Mostra a imagem correspondente
             const imageId = menuItems[index].getAttribute('data-image');
-            const correspondingImage = document.getElementById(imageId);
-            if (correspondingImage) {
-                correspondingImage.classList.remove('hidden');
+            if (imageId) {
+                const correspondingImage = document.getElementById(imageId);
+                if (correspondingImage && !correspondingImage.classList.contains('remover')) {
+                    correspondingImage.classList.remove('hidden');
+                }
             }
         }
 
@@ -76,14 +116,23 @@ document.addEventListener('DOMContentLoaded', function () {
     function nextItem() {
         const currentPageId = pageOrder[currentPageIndex];
         const currentPageElement = document.getElementById(currentPageId);
-        const menuItems = currentPageElement.querySelectorAll('.menu-item');
+        const menuItems = currentPageElement.querySelectorAll('.menu-item:not(.remover)'); // Só considera itens visíveis
+
+        // Se não há itens visíveis na página atual, muda imediatamente para a próxima
+        if (menuItems.length === 0) {
+            const nextPageIndex = findNextPageWithItems(currentPageIndex);
+            if (nextPageIndex !== currentPageIndex) {
+                changePage(nextPageIndex);
+            }
+            return;
+        }
 
         if (menuItems.length > 0) {
             // Se chegou no último item, muda de página
             if (currentIndex >= menuItems.length - 1) {
                 // Vai para a próxima página
-                currentPageIndex = (currentPageIndex + 1) % pageOrder.length;
-                changePage(currentPageIndex);
+                const nextPageIndex = findNextPageWithItems(currentPageIndex);
+                changePage(nextPageIndex);
             } else {
                 // Avança para o próximo item na mesma página
                 currentIndex++;
@@ -105,8 +154,16 @@ document.addEventListener('DOMContentLoaded', function () {
     // Reinicia a seleção automática
     function restartAutoSelection() {
         stopAutoSelection();
-        selectItem(0); // Seleciona o primeiro item
-        startAutoSelection();
+        
+        const currentPageId = pageOrder[currentPageIndex];
+        const currentPageElement = document.getElementById(currentPageId);
+        const visibleItems = currentPageElement.querySelectorAll('.menu-item:not(.remover)');
+        
+        // Só seleciona o primeiro item se houver itens visíveis
+        if (visibleItems.length > 0) {
+            selectItem(0);
+            startAutoSelection();
+        }
     }
 
     // Event listeners para responsividade
@@ -115,14 +172,24 @@ document.addEventListener('DOMContentLoaded', function () {
 
     // Inicia a seleção automática na primeira página
     adjustLayout(); // Ajusta o layout inicial
-    restartAutoSelection();
+    
+    // Encontra a primeira página que tem itens visíveis
+    let startPageIndex = 0;
+    for (let i = 0; i < pageOrder.length; i++) {
+        if (pageHasVisibleItems(pageOrder[i])) {
+            startPageIndex = i;
+            break;
+        }
+    }
+    
+    changePage(startPageIndex);
 });
 
 function updateQuantity() {
-    // Contar o número de divs com a classe 'itemAlm, itemAlmch, itemPrtDia, itemExec'
-    const itemAlm = document.querySelectorAll('.itemAlm.mostrar').length;
-    const itemAlmch = document.querySelectorAll('.itemAlmch.mostrar').length;
-    const itemExec = document.querySelectorAll('.itemExec.mostrar').length;
+    // Contar apenas os itens que estão visíveis (com classe 'mostrar' e sem 'remover')
+    const itemAlm = document.querySelectorAll('.itemAlm.mostrar:not(.remover)').length;
+    const itemAlmch = document.querySelectorAll('.itemAlmch.mostrar:not(.remover)').length;
+    const itemExec = document.querySelectorAll('.itemExec.mostrar:not(.remover)').length;
     console.log(itemAlm);
     console.log(itemAlmch);
     console.log(itemExec);
@@ -181,21 +248,35 @@ function updateQuantity() {
 // Chamar a função quando o DOM estiver completamente carregado
 document.addEventListener('DOMContentLoaded', updateQuantity);
 
-
-
 // Função para remover o itens do painel
 function iniciaRemover(modalID) {
     const modal = document.getElementById(modalID);
     modal.classList.add('remover'),
-        modal.classList.replace('menu-item', 'menu-ite'),
-        modal.classList.replace('food-image', 'food-imag');
+    modal.classList.replace('menu-item', 'menu-ite'),
+    modal.classList.replace('food-image', 'food-imag');
+    
+    // Atualiza as quantidades após remover um item
+    setTimeout(updateQuantity, 100);
+    // Força uma atualização do carrossel
+    setTimeout(() => {
+        window.dispatchEvent(new Event('storage'));
+    }, 150);
 }
+
 function paraRemover(modalIDD) {
     const modal = document.getElementById(modalIDD);
     modal.classList.remove('remover')
     modal.classList.replace('menu-ite', 'menu-item'),
-        modal.classList.replace('food-imag', 'food-image');
+    modal.classList.replace('food-imag', 'food-image');
+    
+    // Atualiza as quantidades após mostrar um item
+    setTimeout(updateQuantity, 100);
+    // Força uma atualização do carrossel
+    setTimeout(() => {
+        window.dispatchEvent(new Event('storage'));
+    }, 150);
 }
+
 // set chekcboxes using localstorage onload page
 var check30statusStorage = localStorage.getItem("check30");
 var check31statusStorage = localStorage.getItem("check31");
@@ -619,5 +700,3 @@ window.addEventListener('storage', function (event) {
 });
 
 */
-
-
