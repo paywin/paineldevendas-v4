@@ -637,15 +637,15 @@ window.addEventListener('storage', function (event) {
     }
 });
 
-/* CHECKS COMENTADOS - ITENS QUE FALTAM NO HTML
+
 
 // Check 52 - Carne de Sol (FALTA NO HTML)
 if (check52statusStorage == 'false') {
-    iniciaRemover('carneSol'),
-    iniciaRemover('imgCarneSol');
+    iniciaRemover('sol'),
+    iniciaRemover('sol');
 } else {
-    paraRemover('carneSol'),
-    paraRemover('imgCarneSol');
+    paraRemover('sol'),
+    paraRemover('imgSol');
 }
 window.addEventListener('storage', function (event) {
     if (event.key === 'check52') {
@@ -654,6 +654,8 @@ window.addEventListener('storage', function (event) {
     }
 });
 
+
+/* CHECKS COMENTADOS - ITENS QUE FALTAM NO HTML
 // Check 53 - Picanha de Porco (FALTA NO HTML)
 if (check53statusStorage == 'false') {
     iniciaRemover('picanhaPorco'),

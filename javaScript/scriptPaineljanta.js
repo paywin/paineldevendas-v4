@@ -169,10 +169,10 @@ document.addEventListener('DOMContentLoaded', function() {
     check83();
 });
 
-document.getElementById('myCheckbox').addEventListener('change', function() {
+/*document.getElementById('myCheckbox').addEventListener('change', function() {
     // Armazena o estado do checkbox no localStorage
     localStorage.setItem('checkboxState', this.checked);
-});
+}); */
 
 // Inicializa o estado do checkbox com o valor armazenado no localStorage (se existir)
 window.addEventListener('load', function() {
